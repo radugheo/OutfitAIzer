@@ -1,0 +1,28 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: trailing-whitespace
+        files: ^Backend/.*\.py$
+      - id: end-of-file-fixer
+        files: ^Backend/.*\.py$
+  - repo: https://github.com/psf/black
+    rev: stable
+    hooks:
+      - id: black
+        files: ^Backend/.*\.py$
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.9.3
+    hooks:
+      - id: isort
+        files: ^Backend/.*\.py$
+  - repo: https://github.com/pre-commit/mirrors-pylint
+    rev: v3.0.0a5
+    hooks:
+      - id: pylint
+        files: ^Backend/.*\.py$
+        args: [--rcfile=.pylintrc]
+        additional_dependencies:
+        - Django
+        - djangorestframework
+        - pylint-django
