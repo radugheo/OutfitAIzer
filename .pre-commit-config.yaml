@@ -16,13 +16,10 @@ repos:
     hooks:
       - id: isort
         files: ^Backend/.*\.py$
-  - repo: https://github.com/pre-commit/mirrors-pylint
-    rev: v3.0.0a5
+  - repo: local
     hooks:
       - id: pylint
+        name: pylint
+        entry: ./check_pylint_rating.bat
+        language: script
         files: ^Backend/.*\.py$
-        args: [--rcfile=.pylintrc]
-        additional_dependencies:
-        - Django
-        - djangorestframework
-        - pylint-django
