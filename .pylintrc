@@ -1,2 +1,2 @@
 [MESSAGES CONTROL]
-disable=missing-function-docstring,missing-module-docstring,invalid-name,missing-class-docstring,unused-import
+disable=missing-function-docstring,missing-module-docstring,invalid-name,missing-class-docstring,unused-import,import-error

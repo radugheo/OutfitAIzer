@@ -6,7 +6,6 @@ from outfit.models.Outfit import Outfit
 
 
 class User(models.Model):
-    id = models.AutoField(primary_key=MAX_LENGTH)
     username = models.CharField(max_length=MAX_LENGTH)
     password = models.CharField(max_length=MAX_LENGTH)
     email = models.EmailField(max_length=MAX_LENGTH)
