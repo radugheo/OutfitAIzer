@@ -7,4 +7,4 @@ class Item(models.Model):
     brand = models.CharField(max_length=100)
     color = models.CharField(max_length=100)
     image = models.CharField()
-    ocassions = ArrayField(models.CharField(max_length=50))
+    occasions = ArrayField(models.CharField(max_length=50))
