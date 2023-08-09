@@ -1,6 +1,6 @@
-from api.models.Item import Item
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from items.models.Item import Item
 
 
 class Outfit(models.Model):

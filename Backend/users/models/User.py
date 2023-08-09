@@ -1,7 +1,7 @@
-from api.models.Item import Item
-from api.models.Outfit import Outfit
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
+from items.models.Item import Item
+from outfits.models.Outfit import Outfit
 
 
 class User(models.Model):
