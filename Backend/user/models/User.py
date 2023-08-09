@@ -1,8 +1,8 @@
 from constants import MAX_LENGTH
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
-from items.models.Item import Item
-from outfits.models.Outfit import Outfit
+from item.models.Item import Item
+from outfit.models.Outfit import Outfit
 
 
 class User(models.Model):

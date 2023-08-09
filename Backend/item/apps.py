@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ClothesConfig(AppConfig):
+class ItemConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "clothes"
+    name = "item"
