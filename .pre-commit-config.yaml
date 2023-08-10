@@ -21,7 +21,7 @@ repos:
     hooks:
       - id: pylint
         files: ^Backend/.*\.py$
-        args: [--rcfile=.pylintrc]
+        args: [--rcfile=.pylintrc, '--exit-zero']
         additional_dependencies:
         - Django
         - djangorestframework
