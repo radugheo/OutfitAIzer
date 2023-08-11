@@ -9,4 +9,5 @@ def getRoutes(request):
         "alDoileaCamp": "al doilea camp",
         "alTreileaCamp": "al treilea camp",
     }
+
     return Response(test)

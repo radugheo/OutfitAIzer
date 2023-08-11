@@ -58,3 +58,11 @@ def postLogout(request):
     response.delete_cookie("jwt")
     response.data = {"message": "success"}
     return response
+
+
+@api_view(["POST"])
+def postRegister(request):
+    serializer = UserSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return Response(serializer.data)
