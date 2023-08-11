@@ -29,9 +29,7 @@ def postLogin(request):
         "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
         "iat": datetime.datetime.utcnow(),
     }
-    token = jwt.encode(payload, config("DJANGO_JWT_SECRET"), algorithm="HS256").decode(
-        "utf-8"
-    )
+    token = jwt.encode(payload, config("DJANGO_JWT_SECRET"), algorithm="HS256")
     response = Response()
     response.set_cookie(key="jwt", value=token, httponly=True)
     response.data = {"jwt": token}
@@ -40,11 +38,11 @@ def postLogin(request):
 
 @api_view(["GET"])
 def getUser(request):
-    token = request.COOKIES.get(jwt)
+    token = request.COOKIES.get("jwt")
     if not token:
         raise AuthenticationFailed("Unauthenticated!")
     try:
-        payload = jwt.decode(token, config("DJANGO_JWT_SECRET"), algorithm=["HS256"])
+        payload = jwt.decode(token, config("DJANGO_JWT_SECRET"), algorithms=["HS256"])
     except jwt.ExpiredSignatureError:
         raise AuthenticationFailed("Unauthenticated!")
     user = User.objects.filter(id=payload["id"]).first()
@@ -52,8 +50,8 @@ def getUser(request):
     return Response(serializer.data)
 
 
-@api_view(["POST"])
-def postLogout(request):
+@api_view(["GET"])
+def getLogout(request):
     response = Response()
     response.delete_cookie("jwt")
     response.data = {"message": "success"}
