@@ -16,3 +16,13 @@ class UserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+    def update(self, instance, validated_data):
+        password = validated_data.pop("password", None)
+        instance.username = validated_data.get("username", instance.username)
+        instance.email = validated_data.get("email", instance.email)
+        instance.picture = validated_data.get("picture", instance.picture)
+        if password is not None:
+            instance.set_password(password)  # criptata
+        instance.save()
+        return instance

@@ -7,4 +7,5 @@ urlpatterns = [
     path("user", views.getUser),
     path("logout", views.getLogout),
     path("register", views.postRegister),
+    path("update", views.patchUpdate),
 ]
