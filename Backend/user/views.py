@@ -1,7 +1,7 @@
 import datetime
 
 import jwt
-from decouple import AutoConfig, config
+from decouple import AutoConfig
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.views import Response
