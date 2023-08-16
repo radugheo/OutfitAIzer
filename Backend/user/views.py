@@ -99,4 +99,5 @@ def postDelete(request):
         return Response(response)
 
     except User.DoesNotExist:  # pylint: disable=no-member
-        return Response({"error": "User not found!"}, status=status.HTTP_404_NOT_FOUND)
+        response = {"error": "User not found!", "status": status.HTTP_404_NOT_FOUND}
+        return Response(response)
