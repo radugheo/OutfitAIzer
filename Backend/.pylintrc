@@ -1,0 +1,4 @@
+[MESSAGES CONTROL]
+disable=django-not-configured,import-outside-toplevel,missing-function-docstring,missing-module-docstring,invalid-name,missing-class-docstring,import-error,too-few-public-methods,raise-missing-from
+[MASTER]
+load-plugins=pylint_django

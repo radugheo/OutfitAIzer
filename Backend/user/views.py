@@ -2,6 +2,7 @@ import datetime
 
 import jwt
 from decouple import AutoConfig
+from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.views import Response
@@ -14,14 +15,14 @@ config = AutoConfig()
 
 @api_view(["POST"])
 def postLogin(request):
-    username = request.data["username"]
-    password = request.data["password"]
+    user_username = request.data["username"]
+    user_password = request.data["password"]
 
-    user = User.objects.filter(username=username).first()
+    user = User.objects.filter(username=user_username).first()
 
     if user is None:
         raise AuthenticationFailed("User not found!")
-    if not user.check_password(password):
+    if not user.check_password(user_password):
         raise AuthenticationFailed("Incorrect password!")
 
     payload = {
@@ -83,3 +84,20 @@ def patchUpdate(request):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
+
+@api_view(["POST"])
+def postDelete(request):
+    user_id = request.data["id"]
+    try:
+        user = User.objects.get(id=user_id)
+        user.delete()
+        response = {
+            "message": "User successfully deleted!",
+            "status": status.HTTP_200_OK,
+        }
+        return Response(response)
+
+    except User.DoesNotExist:  # pylint: disable=no-member
+        response = {"error": "User not found!", "status": status.HTTP_404_NOT_FOUND}
+        return Response(response)
