@@ -55,9 +55,10 @@ def postDelete(request, id):
         payload = jwt.decode(token, config("DJANGO_JWT_SECRET"), algorithms=["HS256"])
     except jwt.ExpiredSignatureError:
         raise AuthenticationFailed("Unauthenticated!")
-    item = Item.objects.get(id=id)
 
+    item = Item.objects.get(id=id)
     user = User.objects.filter(id=payload["id"]).first()
+
     if item not in user.items.all():
         response = {
             "message": "You are not allowed to delete this item!",
@@ -73,7 +74,7 @@ def postDelete(request, id):
         return Response(response)
 
     response = {
-        "message": "User successfully deleted!",
+        "message": "Item successfully deleted!",
         "status": status.HTTP_200_OK,
     }
     item.delete()

@@ -87,7 +87,7 @@ def patchUpdate(request):
 
 
 @api_view(["GET"])
-def getDelete(request):
+def getDeleteLogged(request):
     token = request.COOKIES.get("jwt")
     if not token:
         raise AuthenticationFailed("Not authenticated!")
@@ -105,3 +105,23 @@ def getDelete(request):
             "status": status.HTTP_200_OK,
         }
         return Response(response)
+
+
+api_view(["POST"])
+
+
+def postDelete(request, id):
+    user = User.objects.filter(id=id).first()
+    if not user:
+        response = {
+            "message": "User not found!",
+            "status": status.HTTP_404_NOT_FOUND,
+        }
+        return Response(response)
+
+    user.delete()
+    response = {
+        "message": "User successfully deleted!",
+        "status": status.HTTP_200_OK,
+    }
+    return Response(response)
