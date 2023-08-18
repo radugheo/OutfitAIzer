@@ -56,5 +56,25 @@ def postDelete(request, id):
     except jwt.ExpiredSignatureError:
         raise AuthenticationFailed("Unauthenticated!")
     item = Item.objects.get(id=id)
+
+    user = User.objects.filter(id=payload["id"]).first()
+    if item not in user.items.all():
+        response = {
+            "message": "You are not allowed to delete this item!",
+            "status": status.HTTP_401_UNAUTHORIZED,
+        }
+        return Response(response)
+
+    if not item:
+        response = {
+            "message": "Item not found!",
+            "status": status.HTTP_404_NOT_FOUND,
+        }
+        return Response(response)
+
+    response = {
+        "message": "User successfully deleted!",
+        "status": status.HTTP_200_OK,
+    }
     item.delete()
-    return Response("Item deleted successfully")
+    return Response(response)

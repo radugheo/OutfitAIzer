@@ -8,5 +8,5 @@ urlpatterns = [
     path("logout", views.getLogout),
     path("register", views.postRegister),
     path("update", views.patchUpdate),
-    path("delete", views.postDelete),
+    path("delete", views.getDelete),
 ]
