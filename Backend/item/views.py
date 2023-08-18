@@ -46,8 +46,8 @@ def getItems(request):
     return Response(serializer.data)
 
 
-@api_view(["Post"])
-def deleteItem(request, id):
+@api_view(["POST"])
+def postDelete(request, id):
     token = request.COOKIES.get("jwt")
     if not token:
         raise AuthenticationFailed("Unauthenticated!")
