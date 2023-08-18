@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path("", views.postItem),
-    path("all", views.getAllItems),
+    path("all", views.getItems),
+    path("delete/<int:id>", views.deleteItem),
 ]
