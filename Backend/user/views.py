@@ -86,11 +86,19 @@ def patchUpdate(request):
         return Response(serializer.data)
 
 
-@api_view(["POST"])
-def postDelete(request):
-    user_id = request.data["id"]
-    try:
-        user = User.objects.get(id=user_id)
+@api_view(["GET"])
+def getDeleteLogged(request):
+    token = request.COOKIES.get("jwt")
+    if not token:
+        raise AuthenticationFailed("Not authenticated!")
+    else:
+        try:
+            payload = jwt.decode(
+                token, config("DJANGO_JWT_SECRET"), algorithms=["HS256"]
+            )
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed("Unauthenticated!")
+        user = User.objects.filter(id=payload["id"]).first()
         user.delete()
         response = {
             "message": "User successfully deleted!",
@@ -98,6 +106,20 @@ def postDelete(request):
         }
         return Response(response)
 
-    except User.DoesNotExist:  # pylint: disable=no-member
-        response = {"error": "User not found!", "status": status.HTTP_404_NOT_FOUND}
+
+@api_view(["POST"])
+def postDelete(request, id):
+    user = User.objects.filter(id=id).first()
+    if not user:
+        response = {
+            "message": "User not found!",
+            "status": status.HTTP_404_NOT_FOUND,
+        }
         return Response(response)
+
+    user.delete()
+    response = {
+        "message": "User successfully deleted!",
+        "status": status.HTTP_200_OK,
+    }
+    return Response(response)
