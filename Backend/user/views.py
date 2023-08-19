@@ -107,9 +107,7 @@ def getDeleteLogged(request):
         return Response(response)
 
 
-api_view(["POST"])
-
-
+@api_view(["POST"])
 def postDelete(request, id):
     user = User.objects.filter(id=id).first()
     if not user:
