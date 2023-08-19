@@ -79,3 +79,20 @@ def postDelete(request, id):
     }
     item.delete()
     return Response(response)
+
+
+@api_view(["GET"])
+def getItemByType(request, type):
+    token = request.COOKIES.get("jwt")
+    if not token:
+        raise AuthenticationFailed("Unauthenticated")
+    try:
+        payload = jwt.decode(token, config("DJANGO_JWT_SECRET"), algorithms=["HS256"])
+    except jwt.ExpiredSignatureError:
+        raise AuthenticationFailed("Unauthenticated")
+
+    user = User.objects.filter(id=payload["id"]).first()
+    items = user.items.all()
+    items = items.filter(type=type)
+    serializer = ItemSerializer(items, many=True)
+    return Response(serializer.data)
