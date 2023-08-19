@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path("", views.postItem),
-    path("get/<str:type>", views.getItemByType),
+    path("<str:type>", views.getItemByType),
 ]
