@@ -4,6 +4,10 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    picture = serializers.ImageField(
+        required=False
+    )  # make the image field not required
+
     class Meta:
         model = User
         fields = ["id", "username", "email", "password", "picture"]
